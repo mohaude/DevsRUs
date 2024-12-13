@@ -1,0 +1,13 @@
+{
+  "name": "devsrus",
+  "version": "1.0.0",
+  "description": "LinkedIn clone for developers",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
