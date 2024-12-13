@@ -1,0 +1,13 @@
+name = "devs-r-us"
+type = "webpack"
+account_id = "your-cloudflare-account-id" # Get this from Cloudflare dashboard
+workers_dev = true
+route = ""
+zone_id = ""
+
+[site]
+bucket = "./build" # Your build output directory
+entry-point = "workers-site"
+
+[env.production]
+workers_dev = false
