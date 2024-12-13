@@ -11,43 +11,57 @@ const TeamSchema = new Schema({
     type: String,
     required: true
   },
-  leader: {
+  owner: {
     type: Schema.Types.ObjectId,
     ref: 'user',
     required: true
   },
   members: [{
-    type: Schema.Types.ObjectId,
-    ref: 'user'
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'user'
+    },
+    role: {
+      type: String,
+      enum: ['owner', 'admin', 'member'],
+      default: 'member'
+    },
+    joinedAt: {
+      type: Date,
+      default: Date.now
+    }
   }],
   projects: [{
-    name: {
-      type: String,
-      required: true
-    },
+    title: String,
     description: String,
-    link: String,
-    date: {
-      type: Date,
-      default: Date.now
-    }
+    technologies: [String],
+    repoLink: String,
+    demoLink: String,
+    thumbnail: String
   }],
-  jobs: [{
-    title: {
-      type: String,
-      required: true
-    },
+  openPositions: [{
+    title: String,
     description: String,
     requirements: [String],
-    date: {
-      type: Date,
-      default: Date.now
+    type: {
+      type: String,
+      enum: ['full-time', 'part-time', 'contract', 'internship']
     }
   }],
-  date: {
+  socialLinks: {
+    github: String,
+    website: String,
+    linkedin: String
+  },
+  createdAt: {
     type: Date,
     default: Date.now
   }
+});
+
+// This will create the team URL slug
+TeamSchema.virtual('teamUrl').get(function() {
+  return `/${this.name.toLowerCase().replace(/\s+/g, '-')}`;
 });
 
 module.exports = Team = mongoose.model('team', TeamSchema);
